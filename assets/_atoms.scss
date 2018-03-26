@@ -1,0 +1,186 @@
+/**
+ * COLOURS
+ */
+$color_black: #101521;
+$color_blue: #0f95ff;
+$color_white: #fffbfb;
+
+$bg-dark: $color_black;
+$bg-light: $color_blue;
+
+$text-dark: $color_black;
+$text-light: $color_blue;
+
+.bg-dark {
+  background: $bg-dark;
+}
+
+.bg-light {
+  background: $bg-light;
+}
+
+.text-dark {
+  background: $text-dark;
+}
+
+.text-light {
+  background: $text-light;
+}
+
+/**
+ *  TYPOGRAPHY
+ */
+// Use native font stack:
+// https://atomiks.github.io/30-seconds-of-css/?utm_source=frontendfocus&utm_medium=email#system-font-stack
+$font_family_default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+.app { // TODO Remove from here and fix
+  font-family: $font_family_default !important;
+}
+
+$navi_toolbar_icons_size: 24px;
+
+/**
+ * LISTS
+ */
+ul {
+  * {
+    text-decoration: none;
+  }
+}
+
+/**
+ * SPACING
+ */
+$space_0: 0;
+$space_1: 5px;
+$space_2: 10px;
+$space_3: 15px;
+$space_4: 20px;
+$space_5: 30px;
+$space_6: 40px;
+$space_7: 60px;
+$space_8: 100px;
+$space_9: 150px;
+$space_10: 200px;
+
+$navi_toolbar_desktop_width: 50px;
+$navi_toolbar_device_height: $space_6;
+
+/**
+ * ANIMATIONS
+ */
+$spin_duration: 0.5s;
+
+@keyframes spin {
+  from {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+  to {
+    transform: matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1);
+  }
+}
+
+.flip {
+  transition: 0.6s;
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+}
+
+.underline {
+  position: relative;
+
+  &:before {
+    box-shadow: 0 0 10px 2px #ff1f3c;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    bottom: 0;
+    left: 0;
+    background: #ffedaf;
+    visibility: hidden;
+    border-radius: $space_1;
+    transform: scaleX(0);
+    transition: .25s linear;
+  }
+
+  &:hover {
+    &:before {
+      visibility: visible;
+      transform: scaleX(1);
+    }
+  }
+}
+
+/**
+ *  GRID
+ */
+// VIEWPORT: windows space when thing are changing
+$screen_viewport_xs: 0;
+$screen_viewport_sm: 576px;
+$screen_viewport_md: 768px;
+$screen_viewport_lg: 992px;
+$screen_viewport_xl: 1200px;
+
+// breakpoints (sass) : windows space when thing are changing
+$breakpoint_screen_sm: min-width $screen_viewport_sm;
+$breakpoint_screen_md: min-width $screen_viewport_md;
+$breakpoint_screen_lg: min-width $screen_viewport_lg;
+$breakpoint_screen_xl: min-width $screen_viewport_xl;
+
+$sidebar_width: $space_8;
+
+/**
+ * ANIMATIONS
+ */
+// BORDER ANIMATION (used on hover)
+@mixin setBorderAnimation($bg_color: $color_black, $border_size: 2px, $time: 2s) {
+  $border: $border_size solid $bg_color;
+
+  &::before,
+  &::after {
+    border-color: $bg_color;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    overflow: hidden;
+    transition: all $time ease-in-out;
+  }
+
+  &::before {
+    border-left: $border;
+    border-right: $border;
+    width: 100%;
+    height: 0;
+    top: 50%;
+    left: 0;
+  }
+
+  &::after {
+    border-top: $border;
+    border-bottom: $border;
+    height: 100%;
+    width: 0;
+    left: 50%;
+    top: 0;
+  }
+
+  &:hover,
+  &.active {
+    &::before {
+      top: 0;
+      height: 100%;
+    }
+
+    &::after {
+      left: 0;
+      width: 100%;
+    }
+  }
+}
